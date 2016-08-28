@@ -4,24 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rainbow.bodies.Body;
+import rainbow.bodies.action.BodyMover;
 
 public class World {
 	private long startTime;
-	private int rate = 50;
+	private long lastTime;
+	private int rate = 20;
 	private Map<String, Body> bodies = new HashMap<>();
-	private World world = new World();
+	private static World world = new World();
 
 	private World() {
 	}
 
-	public World getWorld() {
+	public static World getWorld() {
 		return world;
 	}
 
-	
-	
-	
-	
+	public void action() {
+		startTime = System.currentTimeMillis();
+		lastTime = startTime;
+		while (true) {
+			long now = System.currentTimeMillis();
+			if (now >= 1000.0 / rate + lastTime) {
+				for (Body b : bodies.values()) {
+					BodyMover.move(b);
+					if ((now - startTime) % 1000 < 10) {
+						System.out.println(b);
+						System.out.println(lastTime - startTime);
+					}
+				}
+				lastTime = now;
+			}
+		}
+	}
+
 	public void add(Body b) {
 		String name = b.getName() == null ? "body-" + (bodies.size()) : b.getName();
 		if (b.getName() == null)

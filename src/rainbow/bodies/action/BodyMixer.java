@@ -23,7 +23,6 @@ public class BodyMixer {
 
 		Velocity v = new Velocity(xv, yv, zv);
 
-		Body newBody = new Body(b1.getMass(), v, b1.getLocation().Middle(b2.getLocation()));
 		return newBody;
 	}
 

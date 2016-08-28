@@ -5,10 +5,11 @@ import rainbow.bodies.Body;
 import rainbow.properties.Vector;
 import rainbow.properties.must.Location;
 import rainbow.properties.must.Velocity;
+import rainbow.run.World;
 
 public class Test {
 	public static void main(String[] args) {
-		bodyTest();
+		bodyMoveTest();
 	}
 
 	static {
@@ -23,10 +24,10 @@ public class Test {
 		System.out.println(v2);
 	}
 
-	public static void bodyTest() {
+	public static void bodyMoveTest() {
 		Body b1 = new Body();
-		Body b2 = new Body();
-		System.out.println(b1);
-		System.out.println(b2);
+		b1.setVelocity(new Velocity(1, 2, 0));
+		World.getWorld().add(b1);
+		World.getWorld().action();
 	}
 }
